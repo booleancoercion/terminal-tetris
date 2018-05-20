@@ -31,6 +31,9 @@ class TetrisBlock:
     rotdict = {0:[]}
 
     testdict = {0:[]}
+
+    col = 0
+
     def __init__(self, grid):
         """Initiates the block on the given grid.\
          Defines _grid, _center, _pixels, _col and _rot"""
@@ -38,7 +41,6 @@ class TetrisBlock:
         self._center = [0,0]
         self._pixels = []
         self._rot = 0
-        self._col = 0
     
     def move(self, x, y):
         """Moves the block x times right and y times down.\
@@ -101,7 +103,7 @@ class TetrisBlock:
     def updategrid(self):
         """Updates the grid with the current _pixels list."""
         for p in self._pixels:
-            self._grid[p[1]][p[0]] = self._col
+            self._grid[p[1]][p[0]] = self.col
     
     def remself(self):
         """Removes the current pixels from the grid. To be used with self.updategrid() to\
@@ -123,20 +125,22 @@ class IBlock(TetrisBlock):
                 (3, 2):[[0, 0], [-2, 0], [1, 0], [-2, -1], [1, 2]],
                 (3, 0):[[0, 0], [1, 0], [-2, 0], [1, -2], [-2, 1]],
                 (0, 3):[[0, 0], [-1, 0], [2, 0], [-1, 2], [2, -1]]}
+    
+    col = 1
 
     def __init__(self, grid):
         self._grid = grid
         self._center = [4.5, 1.5]
         self._pixels = [[3, 1], [4, 1], [5, 1], [6, 1]]
         self._rot = 0
-        self._col = 1
         
 class OBlock(TetrisBlock):
+    col = 2
+
     def __init__(self, grid):
         self._grid = grid
         self._center = [4, 1]
         self._pixels = [[4, 0], [5, 0], [4, 1], [5, 1]]
-        self._col = 2
 
     def rot(self):
         pass
@@ -158,12 +162,13 @@ class TBlock(TetrisBlock):
     
     testdict = globaltestdict
     
+    col = 3
+
     def __init__(self, grid):
         self._grid = grid
         self._center = [4, 1]
         self._pixels = [[4, 0], [3, 1], [4, 1], [5, 1]]
         self._rot = 0
-        self._col = 3
 
 class SBlock(TetrisBlock):
     rotdict = {0:[[0, -1], [1, -1], [-1, 0], [0, 0]],
@@ -173,12 +178,13 @@ class SBlock(TetrisBlock):
 
     testdict = globaltestdict
 
+    col = 4
+
     def __init__(self, grid):
         self._grid = grid
         self._center = [4, 1]
         self._pixels = [[4, 0], [5, 0], [3, 1], [4, 1]]
         self._rot = 0
-        self._col = 4
 
 class ZBlock(TetrisBlock):
     rotdict = {0:[[-1, -1], [0, -1], [0, 0], [1, 0]],
@@ -188,12 +194,13 @@ class ZBlock(TetrisBlock):
 
     testdict = globaltestdict
 
+    col = 5
+
     def __init__(self, grid):
         self._grid = grid
         self._center = [4, 1]
         self._pixels = [[3, 0], [4, 0], [4, 1], [5, 1]]
         self._rot = 0
-        self._col = 5
 
 class JBlock(TetrisBlock):
     rotdict = {0:[[-1, -1], [-1, 0], [0, 0], [1, 0]],
@@ -202,13 +209,14 @@ class JBlock(TetrisBlock):
                3:[[0, -1], [0, 0], [-1, 1], [0, 1]]}
 
     testdict = globaltestdict
+
+    col = 6
     
     def __init__(self, grid):
         self._grid = grid
         self._center = [4, 1]
         self._pixels = [[3, 0], [3, 1], [4, 1], [5, 1]]
         self._rot = 0
-        self._col = 6
 
 class LBlock(TetrisBlock):
     rotdict = {0:[[1, -1], [-1, 0], [0, 0], [1, 0]],
@@ -218,12 +226,13 @@ class LBlock(TetrisBlock):
 
     testdict = globaltestdict
 
+    col = 7
+
     def __init__(self, grid):
         self._grid = grid
         self._center = [4, 1]
         self._pixels = [[5, 0], [3, 1], [4, 1], [5, 1]]
         self._rot = 0
-        self._col = 7
 
 def isin(pixel, pixels):
     for p in pixels:
