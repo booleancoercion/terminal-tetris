@@ -110,7 +110,8 @@ def printgrid(mat, nl=True):
         nxt2m[p[1]][p[0]] = nxt2.col
     
     printa('.u.6B')
-    print('┌─'+'─'*nxtd['width']*2+'─┬─'+'─'*nxt2d['width']*2+'─┐        ', end='')
+    print('┌─'+'─'*nxtd['width']*2+'─┬─'+'─'*nxt2d['width']*2+'─┐', end='')
+    printa('.K')
     for r in range(height):
         printa('.u.'+str(7+r)+'B')
         print('│ ', end='')
@@ -130,9 +131,11 @@ def printgrid(mat, nl=True):
             else:
                 print('  ', end='')
         
-        print(' │        ', end='')
+        print(' │', end='')
+        printa('.K')
     printa('.u.'+str(7+height)+'B')
-    print('└─'+'─'*nxtd['width']*2+'─┴─'+'─'*nxt2d['width']*2+'─┘        ', end='')
+    print('└─'+'─'*nxtd['width']*2+'─┴─'+'─'*nxt2d['width']*2+'─┘', end='')
+    printa('.K')
 
     printa('.u.21B.D')
 
