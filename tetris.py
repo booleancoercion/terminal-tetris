@@ -492,11 +492,15 @@ os.system('stty -echo')
 
 try:
     while noexceptions:
-        printa('.20D.23A')
+        printa('.H')
         printgrid(grid, nl=False)
         time.sleep(0.03)
     raise KeyboardInterrupt()
 except KeyboardInterrupt:
     listener.stop()
+    if(fall_timer != None):
+        fall_timer.cancel()
+    if(lock_timer != None):
+        lock_timer.cancel()
     os.system('stty echo')
     printa('.2E\n')
