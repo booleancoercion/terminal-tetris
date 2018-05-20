@@ -58,6 +58,8 @@ def printa(s):
     print(s.replace('.', '\033['), end='')
 
 def printgrid(mat, nl=True):
+    global bag
+
     g = mat.rows[2:]
     out = '\n┌'+'─'*20+'┐\n'
     for r in g:
@@ -83,6 +85,56 @@ def printgrid(mat, nl=True):
     print(str(lines) + ' '*(8-len(str(lines))) + ' │ ' + str(linesleft) + ' '*(5-len(str(linesleft))) + ' │', end='')
     printa('.u.3B')
     print('└─'+'─'*slen+'─┴────────┴──────────┴───────┘', end='')
+
+
+    printa('.u.5B')
+    print('Next:', end='')
+    if(len(bag) < 3):
+        temp = block_classes[:]
+        random.shuffle(temp)
+        bag += temp
+    nxt = bag[-2]
+    nxtd = disp[nxt]
+    nxt2 = bag[-3]
+    nxt2d = disp[nxt2]
+
+    height = max(nxtd['height'], nxt2d['height'])
+    width = max(nxtd['width'], nxt2d['width'])
+
+    nxtm = matrix.blank(height, width)
+    nxt2m = matrix.blank(height, width)
+
+    for p in nxtd['pixels']:
+        nxtm[p[1]][p[0]] = nxt.col
+    
+    for p in nxt2d['pixels']:
+        nxt2m[p[1]][p[0]] = nxt2.col
+    
+    printa('.u.6B')
+    print('┌─'+'─'*width*2+'─┬─'+'─'*width*2+'─┐        ', end='')
+    for r in range(height):
+        printa('.u.'+str(7+r)+'B')
+        print('│ ', end='')
+        for c in range(width):
+            e = nxtm[r][c]
+            if(e > 0):
+                print(colored('██', blocks.colors[e]), end='')
+            else:
+                print('  ', end='')
+        
+        print(' │ ', end='')
+        
+        for c in range(width):
+            e = nxt2m[r][c]
+            if(e > 0):
+                print(colored('██', blocks.colors[e]), end='')
+            else:
+                print('  ', end='')
+        
+        print(' │        ', end='')
+    printa('.u.'+str(7+height)+'B')
+    print('└─'+'─'*width*2+'─┴─'+'─'*width*2+'─┘        ', end='')
+
     printa('.u.21B.D')
 
     if(hold != None):
