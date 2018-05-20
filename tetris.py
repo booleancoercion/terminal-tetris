@@ -93,16 +93,15 @@ def printgrid(mat, nl=True):
         temp = block_classes[:]
         random.shuffle(temp)
         bag += temp
-    nxt = bag[-2]
+    nxt = bag[-1]
     nxtd = disp[nxt]
-    nxt2 = bag[-3]
+    nxt2 = bag[-2]
     nxt2d = disp[nxt2]
 
     height = max(nxtd['height'], nxt2d['height'])
-    width = max(nxtd['width'], nxt2d['width'])
 
-    nxtm = matrix.blank(height, width)
-    nxt2m = matrix.blank(height, width)
+    nxtm = matrix.blank(height, nxtd['width'])
+    nxt2m = matrix.blank(height, nxt2d['width'])
 
     for p in nxtd['pixels']:
         nxtm[p[1]][p[0]] = nxt.col
@@ -111,11 +110,11 @@ def printgrid(mat, nl=True):
         nxt2m[p[1]][p[0]] = nxt2.col
     
     printa('.u.6B')
-    print('┌─'+'─'*width*2+'─┬─'+'─'*width*2+'─┐        ', end='')
+    print('┌─'+'─'*nxtd['width']*2+'─┬─'+'─'*nxt2d['width']*2+'─┐        ', end='')
     for r in range(height):
         printa('.u.'+str(7+r)+'B')
         print('│ ', end='')
-        for c in range(width):
+        for c in range(nxtd['width']):
             e = nxtm[r][c]
             if(e > 0):
                 print(colored('██', blocks.colors[e]), end='')
@@ -124,7 +123,7 @@ def printgrid(mat, nl=True):
         
         print(' │ ', end='')
         
-        for c in range(width):
+        for c in range(nxt2d['width']):
             e = nxt2m[r][c]
             if(e > 0):
                 print(colored('██', blocks.colors[e]), end='')
@@ -133,7 +132,7 @@ def printgrid(mat, nl=True):
         
         print(' │        ', end='')
     printa('.u.'+str(7+height)+'B')
-    print('└─'+'─'*width*2+'─┴─'+'─'*width*2+'─┘        ', end='')
+    print('└─'+'─'*nxtd['width']*2+'─┴─'+'─'*nxt2d['width']*2+'─┘        ', end='')
 
     printa('.u.21B.D')
 
