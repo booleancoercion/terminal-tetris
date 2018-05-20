@@ -271,7 +271,7 @@ def on_press(key):
                         left_t = threading.Timer(0.05, left)
                         left_t.start()
                     
-                    left_t = threading.Timer(0.05, left)
+                    left_t = threading.Timer(0, left)
                     left_t.start()
 
             elif(key == keyboard.Key.right):
@@ -296,7 +296,7 @@ def on_press(key):
                         right_t = threading.Timer(0.05, right)
                         right_t.start()
                     
-                    right_t = threading.Timer(0.05, right)
+                    right_t = threading.Timer(0, right)
                     right_t.start()
 
             elif(key == keyboard.Key.down):
