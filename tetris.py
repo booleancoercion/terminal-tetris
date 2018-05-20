@@ -41,6 +41,7 @@ linesleft = 5
 delay = 1
 b2b = 0
 noexceptions = True
+holdlock = False
 
 block_classes = [IBlock, JBlock, LBlock, TBlock, SBlock, ZBlock, OBlock]
 
@@ -209,7 +210,7 @@ def get_delay():
     return delay
 
 def newblock():
-    global bag, fall_timer
+    global bag, fall_timer, holdlock
 
     if(fall_timer != None):
         fall_timer.cancel()
@@ -230,6 +231,7 @@ def newblock():
 
     fall_timer = threading.Timer(interval=get_delay(), function=func)
     fall_timer.start()
+    holdlock = False
     return bag.pop()(grid)
 
 def lock():
@@ -327,7 +329,7 @@ rotlock = False
 
 def on_press(key):
     global active, active_ghost, score, noexceptions, bag, hold, locked
-    global left_t, right_t, down_t, left_p, right_p, rotlock
+    global left_t, right_t, down_t, left_p, right_p, rotlock, holdlock
     if(locked): return
     try:
         if(active != None):
@@ -406,17 +408,19 @@ def on_press(key):
                         pass
 
             elif(key == keyboard.Key.shift):
-                active.remself()
-                active_ghost.remself()
-                hold, active = active, hold
-                if(active != None):
-                    active = active.__class__(active._grid)
-                
-                else:
-                    active = newblock()
-                
-                reset_ldelay()
-                active_ghost = Ghost(active)
+                if(holdlock == False):
+                    holdlock = True
+                    active.remself()
+                    active_ghost.remself()
+                    hold, active = active, hold
+                    if(active != None):
+                        active = active.__class__(active._grid)
+                    
+                    else:
+                        active = newblock()
+                    
+                    reset_ldelay()
+                    active_ghost = Ghost(active)
             
             active_ghost.update()
         
