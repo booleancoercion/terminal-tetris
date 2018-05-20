@@ -140,7 +140,34 @@ def printgrid(mat, nl=True):
     printa('.u.21B.D')
 
     if(hold != None):
-        pass
+        cc = hold.__class__
+        h = disp[cc]['height']
+        w = disp[cc]['width']
+        m = matrix.blank(h, w)
+        for p in disp[cc]['pixels']:
+            m[p[1]][p[0]] = cc.col
+        
+        printa('.'+str(h+3)+'A.C.K.B.s')
+        print('Hold:', end='')
+        printa('.K.u.B')
+        print('┌─'+'─'*w*2+'─┐', end='')
+        printa('.K')
+        for r in range(h):
+            printa('.u.'+str(r+2)+'B')
+            print('│ ', end='')
+            for c in range(w):
+                e = m[r][c]
+                if(e > 0):
+                    print(colored('██', blocks.colors[e]), end='')
+                else:
+                    print('  ', end='')
+            
+            print(' │', end='')
+            printa('.K')
+        
+        printa('.u.'+str(h+2)+'B')
+        print('└─'+'─'*w*2+'─┘', end='')
+        printa('.K')
 
     if(nl):
         print()
