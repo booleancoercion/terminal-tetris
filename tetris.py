@@ -93,7 +93,7 @@ def printgrid(mat, nl=True):
     if(len(bag) < 3):
         temp = block_classes[:]
         random.shuffle(temp)
-        bag += temp
+        bag = temp + bag
     nxt = bag[-1]
     nxtd = disp[nxt]
     nxt2 = bag[-2]
