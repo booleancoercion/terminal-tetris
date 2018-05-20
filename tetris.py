@@ -215,6 +215,8 @@ def newblock():
     if(fall_timer != None):
         fall_timer.cancel()
 
+    reset_ldelay()
+
     if(len(bag) == 0):
         bag = block_classes[:]
         random.shuffle(bag)
@@ -243,8 +245,7 @@ def lock():
     for p in active._pixels:
         if(p[1] < 2):
             print("Game Over!")
-            while True:
-                pass
+            noexceptions = False
 
     rows = set()
 
@@ -460,7 +461,7 @@ def on_release(key):
             down_t.cancel()
             down_t = None
             def func():
-                global active, active_ghost, fall_timer
+                global fall_timer
                 if(active != None):
                     try:
                         move_down()
