@@ -299,13 +299,16 @@ def move_down():
         reset_ldelay()
     except:
         def tmr():
-            global lock_delay, lock_timer
-            lock_delay -= 0.01
-            if(lock_delay < 0):
-                lock()
-            else:
-                lock_timer = threading.Timer(0.01, tmr)
-                lock_timer.start()
+            try:
+                global lock_delay, lock_timer
+                lock_delay -= 0.01
+                if(lock_delay < 0):
+                    lock()
+                else:
+                    lock_timer = threading.Timer(0.01, tmr)
+                    lock_timer.start()
+            except:
+                pass
         
         lock_timer = threading.Timer(0.01, tmr)
         lock_timer.start()
