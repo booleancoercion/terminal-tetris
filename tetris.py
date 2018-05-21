@@ -246,6 +246,7 @@ def lock():
         if(p[1] < 2):
             print("Game Over!")
             noexceptions = False
+            return
 
     rows = set()
 
