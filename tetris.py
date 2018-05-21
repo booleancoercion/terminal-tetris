@@ -294,7 +294,7 @@ def lock():
         active_ghost = Ghost(active)
         combo = 0
 
-lock_delay = 0.3
+lock_delay = 0.5
 lock_timer = None
 
 def move_down():
@@ -321,9 +321,9 @@ def move_down():
 
 def reset_ldelay():
     global lock_delay, lock_timer
-    if(lock_timer != None and lock_delay < 0.3):
+    if(lock_timer != None and lock_delay < 0.5):
         lock_timer.cancel()
-        lock_delay = 0.3
+        lock_delay = 0.5
 
 left_t = None
 right_t = None
