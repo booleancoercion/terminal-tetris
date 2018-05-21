@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-import matrix, blocks, sys, time, random, os, traceback, threading
+import matrix, blocks, sys, time, random, os, traceback, threading, pynput
 
 from termcolor import colored
 from blocks import Ghost, IBlock, OBlock, TBlock, SBlock, ZBlock, LBlock, JBlock
@@ -246,7 +246,12 @@ def lock():
     for p in active._pixels:
         if(p[1] < 2):
             print("Game Over!")
-            noexceptions = False
+            c = keyboard.Controller()
+            c.press(keyboard.Key.ctrl)
+            c.press('c')
+            c.release(keyboard.Key.ctrl)
+            c.release('c')
+            #Don't ask why, it just works
             return
 
     rows = set()
