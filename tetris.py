@@ -42,6 +42,7 @@ delay = 1
 b2b = 0
 noexceptions = True
 holdlock = False
+combo = 0
 
 block_classes = [IBlock, JBlock, LBlock, TBlock, SBlock, ZBlock, OBlock]
 
@@ -237,7 +238,7 @@ def newblock():
     return bag.pop()(grid)
 
 def lock():
-    global active, active_ghost, lines, score, level, linesleft, b2b, fall_timer, delay, noexceptions
+    global active, active_ghost, lines, score, level, linesleft, b2b, fall_timer, delay, noexceptions, combo
 
     if(fall_timer != None):
         fall_timer.cancel()
@@ -272,6 +273,9 @@ def lock():
         cleared = len(completed)
         score += [100, 300, 500, 800][cleared-1]*level
         linesleft -= [1, 3, 5, 8][cleared-1]
+
+        score += 50*combo*level
+        combo += 1
         
         if(cleared == 4):
             b2b += 1
@@ -288,6 +292,7 @@ def lock():
     else:
         active = newblock()
         active_ghost = Ghost(active)
+        combo = 0
 
 lock_delay = 0.3
 lock_timer = None
